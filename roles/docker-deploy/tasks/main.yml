@@ -29,7 +29,6 @@
         mode: 0755
       loop:
         - plugins.txt
-        - org.jenkins.plugins.lockableresources.LockableResourcesManager.xml
       become: true
 
     - name: Install plugins.
@@ -52,7 +51,6 @@
         group: "{{ admin_name }}"
         mode: 0755
       loop:
-      - nodes
       - scriptApproval.xml
       - org.jenkinsci.plugins.workflow.libs.GlobalLibraries.xml
       become : true
