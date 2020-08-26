@@ -1,0 +1,37 @@
+- name: Log to par-docker-factory-1 registry
+  docker_login:
+    registry: https://par-docker-factory-1:5043
+    username: qafactory
+    password: sanityrocket
+    reauthorize: yes
+
+- name: Copying Dockerfile.
+  template:
+    src: "Dockerfile"
+    dest: "/tmp/Dockerfile"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: build the image
+  command: "docker build --no-cache -t par-docker-factory-1:5043/jenkins:{{ tag_name }} /tmp/"
+  tags: # a ansible-docker command exists but we cant pass --no-cache -t parameter so use command. we need to do this command everytime
+    - skip_ansible_lint
+
+- name: Tag and push to docker hub
+  docker_image:
+    name: par-docker-factory-1:5043/jenkins
+    tag: "{{ tag_name }}"
+    push: yes
+
+- name: Remove Docker image
+  docker_image:
+    name: par-docker-factory-1:5043/jenkins
+    tag: "{{ tag_name }}"
+    state: absent
+    force: yes
+
+- name: Removing Dockerfile
+  file:
+    state: absent
+    path: "/tmp/Dockerfile"

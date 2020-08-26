@@ -1,0 +1,12 @@
+[dockerserver]
+par-docker-factory-1
+
+[jenkinsserver]
+jenkins-sw-qa.aldebaran.lan
+
+[filerserver]
+par-docker-factory-1
+
+[automationserver]
+jenkins-sw-qa.aldebaran.lan
+par-docker-factory-1

@@ -1,0 +1,9 @@
+[dockerserver]
+par-docker-factory-1
+
+[jenkinsserver]
+par-factory-1
+
+[automationserver]
+par-factory-1
+par-docker-factory-1

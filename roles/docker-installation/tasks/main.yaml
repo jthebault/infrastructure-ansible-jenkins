@@ -1,0 +1,76 @@
+# Based on https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-repository
+# Only works with ubuntu.
+
+- name: Remove old version of docker
+  apt:
+    name: "{{ packages }}"
+    state: absent
+    force: yes
+  vars:
+    packages:
+      - docker
+      - docker-engine
+      - docker.io
+  become: true
+
+- name: Installing docker dependencies
+  apt:
+    name: "{{ packages }}"
+    update_cache: yes
+  vars:
+    packages:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+  become: true
+
+- name: Installing aufs dependencies
+  apt:
+    name: "{{ packages }}"
+    update_cache: yes
+  vars:
+    packages:
+    - "linux-image-extra-{{ ansible_kernel }}"
+    - linux-image-extra-virtual
+  when: ansible_distribution_version== '14.04' # This is only mandatory for Ubuntu 14.04.
+  become: true
+
+- name: "Ensure Docker apt key is deployed"
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+    state: present
+  register: add_repository_key
+  become: true
+
+- name: Set up stable repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    state: present
+
+- name: Installing Docker-CE
+  apt:
+    name: docker-ce
+    update_cache: yes
+
+- name: Create directory for docker credential
+  file:
+    path: /usr/local/share/ca-certificates/docker-dev-cert/
+    state: directory
+
+- name: Copy certificates for docker registry
+  copy:
+    src: devdockerCA.crt
+    dest: /usr/local/share/ca-certificates/docker-dev-cert/devdockerCA.crt
+    group: staff
+
+- name: Updating Certificates.
+  command: "update-ca-certificates"
+  tags: # Commands should not change things if nothing needs to be done but no way to check this cmd
+    - skip_ansible_lint
+
+- name: Restarting Docker service
+  service:
+    name: docker
+    state: restarted

@@ -1,0 +1,6 @@
+deploy_user: automation
+jenkins_port: "8080"
+url: "http://localhost:{{ jenkins_port }}"
+deploy_path: /home/automation/jenkins-job-builder
+tag_name: preprod
+admin_name: administrator

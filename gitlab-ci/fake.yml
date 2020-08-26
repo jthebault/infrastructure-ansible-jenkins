@@ -1,0 +1,9 @@
+vault_docker_registry_password: a
+vault_robot_password: a
+vault_robot_password_25: a
+vault_qa_factory_user_password: a
+vault_jenkins_password: a
+vault_ldap_password: a
+vault_tablet_factory_password: a
+vault_testrail_password: a
+vault_lucy_ssh_private_key: a

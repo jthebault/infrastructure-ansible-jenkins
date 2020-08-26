@@ -1,0 +1,75 @@
+- name: Deploying Jenkins docker and associated volumes.
+  block:
+    - pip:
+        name:
+          - docker
+          - requests>=2.20.1
+
+    - name: Create a data container
+      docker_container:
+        name: jenkins-master
+        image: "jenkins:latest"
+        restart_policy: always
+        volumes:
+          - jenkins-log:/var/log/jenkins
+          - jenkins-data:/var/jenkins_home
+        env:
+          JAVA_OPTS: "{{ java_opts }}"
+          JENKINS_OPTS: "{{ jenkins_opts }}"
+        ports:
+          - "{{ jenkins_port }}:8080"
+          - "50000:50000"
+
+    - name: Copying plugins and lockable ressources.
+      copy:
+        src: "{{ item }}"
+        dest: "/var/lib/docker/volumes/jenkins-data/_data/"
+        owner: "{{ admin_name }}"
+        group: "{{ admin_name }}"
+        mode: 0755
+      loop:
+        - plugins.txt
+        - org.jenkins.plugins.lockableresources.LockableResourcesManager.xml
+      become: true
+
+    - name: Install plugins.
+      shell: docker exec jenkins-master sh -c "/usr/local/bin/install-plugins.sh < /var/jenkins_home/plugins.txt"
+
+    - name: Set permissions of nodes folder
+      file:
+        path: /var/lib/docker/volumes/jenkins-data/_data/nodes
+        state: directory
+        owner: "{{ admin_name }}"
+        group: "{{ admin_name }}"
+        mode: 0755
+      become: true
+
+    - name: Set jenkins configuration (nodes,scriptApproval)
+      copy:
+        src: "{{ item }}"
+        dest: /var/lib/docker/volumes/jenkins-data/_data/
+        owner: "{{ admin_name }}"
+        group: "{{ admin_name }}"
+        mode: 0755
+      loop:
+      - nodes
+      - scriptApproval.xml
+      - org.jenkinsci.plugins.workflow.libs.GlobalLibraries.xml
+      become : true
+
+    - name: Restart Jenkins container
+      docker_container:
+        name: jenkins-master
+        state: started
+        restart: yes
+
+    - name: Wait jenkins start before adding credentials (60s)
+      wait_for_connection:
+        delay: 60
+
+  always:
+    - name: Uninstalling docker python package.
+      pip:
+        name: docker
+        state: absent
+

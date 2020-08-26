@@ -1,0 +1,61 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<scriptApproval plugin="script-security@1.42">
+  <approvedSignatures>
+    <string>method hudson.model.Run getTimestamp</string>
+    <string>method java.util.GregorianCalendar toZonedDateTime</string>
+    <string>method java.time.chrono.ChronoZonedDateTime getZone</string>
+    <string>staticField java.time.temporal.ChronoUnit HOURS</string>
+    <string>staticMethod java.time.ZonedDateTime now java.time.ZoneId</string>
+    <string>method java.time.temporal.TemporalUnit between java.time.temporal.Temporal java.time.temporal.Temporal</string>
+    <string>method jenkins.model.ParameterizedJobMixIn$ParameterizedJob scheduleBuild2 int hudson.model.Action[]</string>
+    <string>field hudson.model.Run$Summary message</string>
+    <string>method groovy.lang.GroovyObject getProperty java.lang.String</string>
+    <string>method hudson.model.Actionable getActions</string>
+    <string>method hudson.model.Actionable getActions java.lang.Class</string>
+    <string>method hudson.model.Item getFullName</string>
+    <string>method hudson.model.ItemGroup getAllItems</string>
+    <string>method hudson.model.ItemGroup getAllItems java.lang.Class</string>
+    <string>method hudson.model.ItemGroup getItem java.lang.String</string>
+    <string>method hudson.model.Job getBuild java.lang.String</string>
+    <string>method hudson.model.Job getBuilds</string>
+    <string>method hudson.model.Job getLastBuild</string>
+    <string>method hudson.model.Job isBuilding</string>
+    <string>method hudson.model.ParameterValue getName</string>
+    <string>method hudson.model.ParameterValue getValue</string>
+    <string>method hudson.model.ParametersAction getAllParameters</string>
+    <string>method hudson.model.ParametersAction getParameters</string>
+    <string>method hudson.model.Run getBuildStatusSummary</string>
+    <string>method hudson.model.Run getResult</string>
+    <string>method hudson.model.Run isInProgress</string>
+    <string>method java.io.File exists</string>
+    <string>method java.io.File getParent</string>
+    <string>method java.io.File mkdir</string>
+    <string>method java.lang.Class isInstance java.lang.Object</string>
+    <string>method java.lang.Object wait long</string>
+    <string>method java.util.List add int java.lang.Object</string>
+    <string>method java.util.regex.Matcher group java.lang.String</string>
+    <string>method org.jenkins.plugins.lockableresources.LockableResource getDescription</string>
+    <string>method org.jenkins.plugins.lockableresources.LockableResource getName</string>
+    <string>method org.jenkins.plugins.lockableresources.LockableResourcesManager getResourcesFromBuild hudson.model.Run</string>
+    <string>method org.jenkinsci.plugins.workflow.support.actions.EnvironmentAction getEnvironment</string>
+    <string>method org.jenkinsci.plugins.workflow.support.steps.build.RunWrapper getRawBuild</string>
+    <string>new java.io.File java.lang.String</string>
+    <string>new java.lang.Exception java.lang.String</string>
+    <string>staticMethod java.time.LocalDateTime now</string>
+    <string>staticMethod jenkins.model.Jenkins getInstance</string>
+    <string>staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods dump java.lang.Object</string>
+    <string>staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods eachFile java.io.File groovy.lang.Closure</string>
+    <string>staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods getProperties java.lang.Object</string>
+    <string>staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods println groovy.lang.Closure java.lang.Object</string>
+    <string>staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods size java.util.regex.Matcher</string>
+    <string>staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods take java.util.List int</string>
+    <string>staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods write java.io.File java.lang.String</string>
+    <string>staticMethod org.jenkins.plugins.lockableresources.LockableResourcesManager get</string>
+  </approvedSignatures>
+  <aclApprovedSignatures>
+    <string>method java.lang.Class getProtectionDomain</string>
+    <string>method java.net.URL getPath</string>
+    <string>method java.security.CodeSource getLocation</string>
+    <string>method java.security.ProtectionDomain getCodeSource</string>
+  </aclApprovedSignatures>
+</scriptApproval>

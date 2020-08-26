@@ -1,0 +1,7 @@
+deploy_user: automation
+jenkins_port: "8082"
+url: "http://localhost:{{ jenkins_port }}"
+deploy_path: /home/automation/jenkins-job-builder
+tag_name: 2.150.1
+backup_name: 'default'
+admin_name: administrateur
